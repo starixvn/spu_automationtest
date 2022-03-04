@@ -34,13 +34,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class EvidenceStep {
-    Database db = new Database();
-    String CTSCustID_CTSCustomer;
-    String IsProcessed_CustEvidenceFromFile;
-    String EvidenceID_CustEvidence;
-    String EvidenceID_CustEvidenceFromFile;
-    String CategoryID_CTSCustomerClassification;
-
 
     @Given("{actor} login with account {string} {string}")
     public void login(Actor actor, String username, String password) {
@@ -102,8 +95,11 @@ public class EvidenceStep {
 
     @Then("{actor} should see IsProcess is equal to 1 during 1 minute on CustEvidenceFromFile table")
     public void weShouldSeeIsProcessIsEqualToAfterWaitingTimeSeconds(Actor actor, DataTable dataTable) throws SQLException, InterruptedException {
+        Database db = new Database();
         List<List<String>> data = dataTable.asLists(String.class);
-        System.out.println("CTSCustID_CTSCustomer1" + CTSCustID_CTSCustomer);
+        String CTSCustID_CTSCustomer = null;
+        String IsProcessed_CustEvidenceFromFile;
+
         actor.attemptsTo(Sleep.By(6000));
         for (int index = 1; index < data.size(); index++) {
             CTSCustID_CTSCustomer = db.getData(String.format("SELECT CTSCustID FROM CTS_DataCenter.CTSCustomer where UserName = '%s'", data.get(index).get(0)));
@@ -128,8 +124,13 @@ public class EvidenceStep {
 
     @And("{actor} should see mapping EvidenceID, CategoryID on CustEvidence, CustEvidenceFromFile, CTSCustomerClassification table")
     public void weShouldSeeMappingCorrect(Actor actor, DataTable dataTable) throws SQLException {
+        Database db = new Database();
+        String CTSCustID_CTSCustomer;
+        String EvidenceID_CustEvidence;
+        String EvidenceID_CustEvidenceFromFile;
+        String CategoryID_CTSCustomerClassification;
+
         List<List<String>> data = dataTable.asLists(String.class);
-        System.out.println("CTSCustID_CTSCustomer2" + CTSCustID_CTSCustomer);
         for (int index = 1; index < data.size(); index++) {
             CTSCustID_CTSCustomer = db.getData(String.format("SELECT CTSCustID FROM CTS_DataCenter.CTSCustomer where UserName = '%s'", data.get(index).get(0)));
             EvidenceID_CustEvidence = db.getData(String.format("SELECT EvidenceID FROM CTS_DataCenter.CustEvidence where CTSCustID = '%s'", CTSCustID_CTSCustomer));
@@ -198,6 +199,8 @@ public class EvidenceStep {
 
     @And("{actor} should see mapping EvidenceID on CustEvidence table with {string}")
     public void userShouldSeeMappingEvidenceIDOnCustEvidenceTable(Actor actor, String userName, DataTable dataTable) throws SQLException {
+        Database db = new Database();
+        String CTSCustID_CTSCustomer;
         List<List<String>> data = dataTable.asLists(String.class);
         CTSCustID_CTSCustomer = db.getData(String.format("SELECT CTSCustID FROM CTS_DataCenter.CTSCustomer where UserName = '%s'", userName));
         ResultSet evidence_CustEvidence = db.exeQuery(String.format("SELECT EvidenceID FROM CTS_DataCenter.CustEvidence where CTSCustID = '%s'", CTSCustID_CTSCustomer));
@@ -215,8 +218,7 @@ public class EvidenceStep {
         int Checklist_indexCol = 0;
 
         for (int i = 0; i < data.get(0).size(); i++) {
-            System.out.println("data.get(0).size()" + data.get(0).get(i));
-            if(data.get(0).get(i).toLowerCase() == "checklist") {
+            if(data.get(0).get(i).equalsIgnoreCase("checklist")) {
                 hasChecklist = true;
                 Checklist_indexCol = i;
             }

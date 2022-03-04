@@ -4,7 +4,7 @@ Feature: Import Evidence
     When user upload evidence file "evidence_invalid.xlsx" with Overwrite type on EvidenceManagement page
     Then user verify msg error
       | tagging | TC-01           | EvidenceCode_expect | Error_expect                           | CheckList |
-      | ff      | AutoFHUUS01248  | 6.1                 | This Customer does not exist.          | hasText   |
+      | 1       | AutoFHUUS01248  | 6.1                 | This Customer does not exist.          | hasText   |
       | 2       | AnvoFHUUS012481 | 6.30                | This Customer does not exist.          |           |
       | 3       | AnvoFHUUS01248  | 1.1                 | This Evidence does not exist.          |           |
       | 4       | AnvoFHUUS01248  | 6.0                 | This Evidence does not exist.          |           |

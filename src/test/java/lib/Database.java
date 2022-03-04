@@ -3,22 +3,43 @@ package lib;
 import java.sql.*;
 import java.util.List;
 
+import cts.ui.model.EnvType;
+import cts.ui.steps.ParameterDefinitions;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Database {
-    Connection conn;
+    private Connection conn;
+    private String url;
+    private String username;
+    private String password;
 
     public Database() {
+        EnvType envType = ParameterDefinitions.getEnvironment();
+        GetProperties prop = new GetProperties();
+        switch (envType) {
+            case Local1, Local2, Local3, LocalMain:
+                this.url = prop.getProperty("local.master.url");
+                this.username = prop.getProperty("local.master.username");
+                this.password = prop.getProperty("local.master.password");
+                break;
+            case UAT:
+                this.url = prop.getProperty("uat.master.url");
+                this.username = prop.getProperty("uat.master.username");
+                this.password = prop.getProperty("uat.master.password");
+                break;
+            case Prod:
+                this.url = prop.getProperty("prod.master.url");
+                this.username = prop.getProperty("prod.master.username");
+                this.password = prop.getProperty("prod.master.password");
+                break;
+        }
         connect();
     }
 
     public void connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://10.18.200.70:3307";
-            String username = "irena.vn";
-            String password = "123456";
             conn = DriverManager.getConnection(url, username, password);
             log.info("connected");
 
