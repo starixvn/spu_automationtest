@@ -33,13 +33,13 @@ public class ParameterDefinitions {
 
     @After
     public void after(Scenario scenario) {
-        if (scenario.isFailed()) {
+//        if (scenario.isFailed()) {
 //            telegram.sendMessage(String.format("Scenario \"%s\" is FAILED - Line: %s \r\nFull Report: %s \r\nSummary Report: %s",
 //                    scenario.getName(),
 //                    scenario.getLine(),
 //                    Paths.get(System.getProperty("user.dir"), prop.getProperty("fullReportDir")),
 //                    Paths.get(System.getProperty("user.dir"), prop.getProperty("summaryReportDir"))));
-        }
+//        }
     }
 
     @BeforeAll
