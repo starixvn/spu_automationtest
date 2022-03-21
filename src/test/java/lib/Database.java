@@ -1,6 +1,8 @@
 package lib;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cts.ui.model.EnvType;
@@ -15,9 +17,8 @@ public class Database {
     private String password;
 
     public Database() {
-        EnvType envType = ParameterDefinitions.getEnvironment();
         GetProperties prop = new GetProperties();
-        switch (envType) {
+        switch (ParameterDefinitions.envType) {
             case Local1, Local2, Local3, LocalMain:
                 this.url = prop.getProperty("local.master.url");
                 this.username = prop.getProperty("local.master.username");
@@ -68,13 +69,27 @@ public class Database {
         }
     }
 
-    public ResultSet exeQuery(String sql) {
+    public ArrayList exeQuery(String sql) throws SQLException {
         try {
             log.info(sql);
             Statement statement = conn.createStatement();
-            return statement.executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(sql);
+            ResultSetMetaData md = resultSet.getMetaData();
+            int columns = md.getColumnCount();
+            ArrayList list = new ArrayList(columns);
+            while (resultSet.next()) {
+                HashMap row = new HashMap(columns);
+                for (int i = 1; i <= columns; ++i) {
+                    row.put(md.getColumnLabel(i), resultSet.getObject(i));
+                }
+                list.add(row);
+            }
+            return list;
         } catch (Exception ex) {
             return null;
+        } finally {
+            conn.close();
+            log.info("closed");
         }
     }
 }

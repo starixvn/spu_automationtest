@@ -203,12 +203,12 @@ public class EvidenceStep {
         String CTSCustID_CTSCustomer;
         List<List<String>> data = dataTable.asLists(String.class);
         CTSCustID_CTSCustomer = db.getData(String.format("SELECT CTSCustID FROM CTS_DataCenter.CTSCustomer where UserName = '%s'", userName));
-        ResultSet evidence_CustEvidence = db.exeQuery(String.format("SELECT EvidenceID FROM CTS_DataCenter.CustEvidence where CTSCustID = '%s'", CTSCustID_CTSCustomer));
+//        ResultSet evidence_CustEvidence = db.exeQuery(String.format("SELECT EvidenceID FROM CTS_DataCenter.CustEvidence where CTSCustID = '%s'", CTSCustID_CTSCustomer));
 //        ResultSet evidence_CustEvidenceFromFile = db.exeQuery(String.format("SELECT EvidenceID FROM CTS_DataCenter.CustEvidenceFromFile where CTSCustID = '%s'", CTSCustID_CTSCustomer));
-        for (int index = 1; index < data.size(); index++) {
-            evidence_CustEvidence.next();
-            actor.attemptsTo(Ensure.that(evidence_CustEvidence.getString(1)).isEqualTo(data.get(index).get(0)));
-        }
+//        for (int index = 1; index < data.size(); index++) {
+//            evidence_CustEvidence.next();
+//            actor.attemptsTo(Ensure.that(evidence_CustEvidence.getString(1)).isEqualTo(data.get(index).get(0)));
+//        }
     }
 
     @Then("{actor} verify msg error")

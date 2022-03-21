@@ -20,6 +20,7 @@ public class ParameterDefinitions {
     private GetProperties prop = new GetProperties();
     public static EnvironmentVariables environmentVariables;
     public static EnvType envType;
+//    public
 
     @ParameterType(".*")
     public Actor actor(String actorName) {
@@ -29,6 +30,7 @@ public class ParameterDefinitions {
     @Before
     public void setTheStage() {
         OnStage.setTheStage(new OnlineCast());
+        if(envType == null){setEnvType();}
     }
 
     @After
@@ -44,26 +46,28 @@ public class ParameterDefinitions {
 
     @BeforeAll
     public static void beforeAll() {
+        log.info("started BeforeAll1");
     }
 
     @AfterAll
     public static void afterAll() {
+        log.info("started AfterAll");
     }
 
-    public static EnvType getEnvironment() {
+    public static void setEnvType() {
         String webserviceEndpoint = EnvironmentSpecificConfiguration.from(environmentVariables).getProperty("webdriver.base.url");
         if (webserviceEndpoint.equals(EnvironmentSpecificConfiguration.from(environmentVariables).getProperty("environments.local1.webdriver.base.url"))) {
-            return EnvType.Local1;
+            ParameterDefinitions.envType = EnvType.Local1;
         } else if (webserviceEndpoint.equals(EnvironmentSpecificConfiguration.from(environmentVariables).getProperty("environments.local2.webdriver.base.url"))) {
-            return EnvType.Local2;
+            ParameterDefinitions.envType = EnvType.Local2;
         } else if (webserviceEndpoint.equals(EnvironmentSpecificConfiguration.from(environmentVariables).getProperty("environments.local3.webdriver.base.url"))) {
-            return EnvType.Local3;
+            ParameterDefinitions.envType = EnvType.Local3;
         } else if (webserviceEndpoint.equals(EnvironmentSpecificConfiguration.from(environmentVariables).getProperty("environments.localmain.webdriver.base.url"))) {
-            return EnvType.LocalMain;
+            ParameterDefinitions.envType = EnvType.LocalMain;
         } else if (webserviceEndpoint.equals(EnvironmentSpecificConfiguration.from(environmentVariables).getProperty("environments.uat.webdriver.base.url"))) {
-            return EnvType.UAT;
+            ParameterDefinitions.envType = EnvType.UAT;
         } else {
-            return null;
+            ParameterDefinitions.envType = null;
         }
     }
 }

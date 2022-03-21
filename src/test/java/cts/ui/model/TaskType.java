@@ -4,8 +4,8 @@ import static cts.ui.model.ExternalPageType.ManageProblemAccountCreditSites;
 import static cts.ui.model.ExternalPageType.ManageProblemAccountLicenseeSites;
 
 public enum TaskType {
-    MarkNewProblemAccountCreditSites(ManageProblemAccountCreditSites, "Mark New Problem Account"),
-    MarkNewProblemAccountLicenseeSites(ManageProblemAccountLicenseeSites, "Mark New Problem Account"),
+    MarkNewProblemAccount_CreditSites(ManageProblemAccountCreditSites, "Mark New Problem Account"),
+    MarkNewProblemAccount_LicenseeSites(ManageProblemAccountLicenseeSites, "Mark New Problem Account"),
     UpdateProblemAccount(ManageProblemAccountCreditSites, "Update Problem Account"),
     Unmark(ManageProblemAccountCreditSites, "Unmark"),
     ReduceBetLimit(ManageProblemAccountCreditSites, "Reduce Bet Limit"),

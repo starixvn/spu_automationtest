@@ -4,15 +4,16 @@ import static cts.ui.model.ActionType.EnterValue;
 import static cts.ui.model.ActionType.Select;
 
 public enum TargetType {
-    LevelType("level", Select, "(//*[@id='ddl-level']/a/span[1])[2]"),
-    ReasonType("reason", Select, "(//*[@id='ddl-reason']/a/span[1])[1]"),
-    PreventiveActionType("preventive Action", Select, "(//*[@id='ddl-preventiveAction']/a/span[1])[1]"),
-    Username("username", EnterValue, "//*[@id='txt-usernames']"),
-    Comment("comment", EnterValue, "//*[@id='txt-comment']");
+    LevelType("level", Select, null,"(//*[@id='ddl-level']/a/span[1])[2]"),
+    ReasonType("reason", Select, null, "(//*[@id='ddl-reason']/a/span[1])[1]"),
+    PreventiveActionType("preventive Action", Select, null,"(//*[@id='ddl-preventiveAction']/a/span[1])[1]"),
+    Username("username", EnterValue, "Username", "//*[@id='txt-usernames']"),
+    Comment("comment", EnterValue, null,"//*[@id='txt-comment']");
 
     private String targetName;
     private ActionType actionType;
     private String targetLocated;
+    private String prepareValue;
 
     public String getTargetLocated() {
         return targetLocated;
@@ -26,9 +27,14 @@ public enum TargetType {
         return actionType;
     }
 
-    TargetType(String targetName, ActionType actionType, String targetLocated) {
+    public String getPrepareValue() {
+        return prepareValue;
+    }
+
+    TargetType(String targetName, ActionType actionType, String prepareValue, String targetLocated) {
         this.targetName = targetName;
         this.actionType = actionType;
+        this.prepareValue = prepareValue;
         this.targetLocated = targetLocated;
     }
 
