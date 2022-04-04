@@ -1,5 +1,5 @@
 package cts.ui.model;
 
-public enum DBType {
+public enum DBEnvType {
     LocalMaster, LocalSlave, UATMaster, UATSlave, ProdMaster, ProdSlave
 }

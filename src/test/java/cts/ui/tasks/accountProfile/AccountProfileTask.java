@@ -1,7 +1,7 @@
 package cts.ui.tasks.accountProfile;
 
 import cts.ui.model.Category;
-import cts.ui.tasks.navigation.NavigateForm;
+import cts.ui.tasks.common.NavigateForm;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;

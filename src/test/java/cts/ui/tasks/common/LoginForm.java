@@ -1,4 +1,4 @@
-package cts.ui.tasks.login;
+package cts.ui.tasks.common;
 
 import net.serenitybdd.screenplay.targets.Target;
 

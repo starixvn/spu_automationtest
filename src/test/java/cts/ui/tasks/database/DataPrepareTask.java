@@ -1,8 +1,8 @@
-package cts.ui.tasks;
+package cts.ui.tasks.database;
 
-import cts.ui.model.Database.AssociationType;
-import cts.ui.model.Database.InputTaskType;
-import cts.ui.model.Database.RoleType;
+import cts.ui.model.database.AssociationType;
+import cts.ui.model.database.InputTaskType;
+import cts.ui.model.database.RoleType;
 import io.cucumber.datatable.DataTable;
 import lib.Database;
 
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataPrepare {
+public class DataPrepareTask {
     private Map<InputTaskType, String> conditionList = new HashMap<>();
     private String queryForm =
             "SELECT ag.Site, ag.CTSCustID, ag.CustID, ag.Username, m.CustID AS MemberCTSCustID, m.CustID AS MemberCustID, m.Username AS MemberUsername\n" +
@@ -23,7 +23,7 @@ public class DataPrepare {
             "LIMIT %d";
     private static ArrayList<HashMap> outputList;
 
-    public DataPrepare(DataTable dataTable) {
+    public DataPrepareTask(DataTable dataTable) {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> map : list) {
             for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -65,7 +65,7 @@ public class DataPrepare {
         }
         Database database = new Database();
         try {
-            this.outputList = database.exeQuery(String.format(queryForm, conditionList.get(InputTaskType.RoleType), conditionList.get(InputTaskType.Site), 2));
+            this.outputList = database.exeQuery(String.format(queryForm, conditionList.get(InputTaskType.RoleType), conditionList.get(InputTaskType.Site), 1));
         } catch (SQLException e) {
             e.printStackTrace();
         }

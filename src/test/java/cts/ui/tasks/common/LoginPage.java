@@ -1,4 +1,4 @@
-package cts.ui.tasks.navigation;
+package cts.ui.tasks.common;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;

@@ -1,15 +1,13 @@
 package cts.ui.tasks;
 
-import cts.ui.model.TargetType;
+import cts.ui.model.external.ExternalTargetType;
 import net.serenitybdd.screenplay.targets.Target;
-
-import java.util.Collection;
 
 public class GeneralForm {
     public static Target SAVE_BUTTON = Target.the("save button").locatedBy("//button[text()='Save']");
     public static Target DIALOG_SUCCESS = Target.the("message dialog").locatedBy("//*[@id='div-successInlineMessage']");
 
-    public static Target dropdown_icon(TargetType targetType) {
+    public static Target dropdown_icon(ExternalTargetType targetType) {
         return Target.the(String.format("target %s", targetType.getTargetName())).locatedBy(targetType.getTargetLocated());
     }
 

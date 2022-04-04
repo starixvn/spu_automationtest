@@ -1,4 +1,4 @@
-package cts.ui.model.Database;
+package cts.ui.model.database;
 
 public enum AssociationType {
     None("none"),

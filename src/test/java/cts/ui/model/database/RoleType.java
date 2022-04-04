@@ -1,17 +1,14 @@
-package cts.ui.model.Database;
+package cts.ui.model.database;
 
-import cts.ui.model.LevelType;
-
-import static cts.ui.model.Database.CTSTableType.CTSCustomer;
+//import static cts.ui.model.Database.CTSTableType.CTSCustomer;
 
 public enum RoleType {
     Member("Member", 1),
-    Agent("Agent", 2),
+    Agent("Agent", 1),
     Master("Master", 3),
     Super("Super", 4);
 
     private String roleName;
-    private CTSTableType ctsTableType;
     private int roleID;
 
     RoleType(String roleName, int roleID) {

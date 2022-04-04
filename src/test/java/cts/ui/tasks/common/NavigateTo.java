@@ -1,10 +1,14 @@
-package cts.ui.tasks.navigation;
+package cts.ui.tasks.common;
 
+import cts.ui.actions.Sleep;
 import cts.ui.model.Category;
+import cts.ui.model.Page;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.actions.Open;
+import org.openqa.selenium.Keys;
 
 public class NavigateTo {
     public static Performable LoginPage() {
@@ -31,6 +35,16 @@ public class NavigateTo {
     }
 
     public static Performable closeDialog() {
+        return Task.where("{0} close the system message dialog",
+                Click.on(NavigateForm.DIALOG_ClOSE));
+    }
+
+    public static Performable toPage(Page page, String userName) {
+        return Task.where("{0} navigate to page",
+                Enter.theValue(userName).into(NavigateForm.searchBox()).thenHit(Keys.ENTER));
+    }
+
+    public static Performable toPage(Page page) {
         return Task.where("{0} close the system message dialog",
                 Click.on(NavigateForm.DIALOG_ClOSE));
     }

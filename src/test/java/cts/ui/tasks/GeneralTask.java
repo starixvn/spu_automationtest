@@ -1,6 +1,8 @@
 package cts.ui.tasks;
 
 import cts.ui.model.*;
+import cts.ui.model.external.ExternalTargetType;
+import cts.ui.tasks.database.DataPrepareTask;
 import io.cucumber.datatable.DataTable;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
@@ -11,50 +13,31 @@ import net.serenitybdd.screenplay.actions.Enter;
 import java.util.*;
 
 public class GeneralTask {
-    public Map<TargetType, String> actionList = new HashMap<>();
+    private Map<ExternalTargetType, List<String>> actionList = new HashMap<>();
 
-    public GeneralTask(DataTable dataTable) {
+    public GeneralTask(DataTable dataTable, TaskType taskType) {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> map : list) {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 Object value = entry.getValue();
-                switch (TargetType.getTargetType(key)) {
-                    case LevelType -> {
-                        this.actionList.put(TargetType.LevelType, LevelType.getLevelType((String) value).getLevelName());
-                        break;
-                    }
-                    case ReasonType -> {
-                        this.actionList.put(TargetType.ReasonType, ReasonType.getReasonType((String) value).getReasonName());
-                        break;
-                    }
-                    case PreventiveActionType -> {
-                        this.actionList.put(TargetType.PreventiveActionType, PreventiveActionType.getPreventiveActionType((String) value).getPreventiveActionName());
-                        break;
-                    }
-                    case Comment, Username -> {
-                        this.actionList.put(TargetType.getTargetType(key), (String) value);
-                        break;
-                    }
-                    default -> {
-                        break;
-                    }
+                ExternalTargetType target = ExternalTargetType.getTargetType(key, taskType, value);
+                if (target.getPrepareMode()) {
+                    this.actionList.put(target, DataPrepareTask.getData(value.toString()));
+                }
+                else {
+                    this.actionList.put(target, Collections.singletonList(value.toString()));
                 }
             }
         }
     }
 
     public Performable runGeneralTask(Actor actor) {
-        TargetType target;
+        ExternalTargetType target;
         Object targetValue;
-        for (Map.Entry<TargetType, String> entry : actionList.entrySet()) {
+        for (Map.Entry<ExternalTargetType, List<String>> entry : actionList.entrySet()) {
             target = entry.getKey();
-            if (target.getPrepareValue() == null){
-                targetValue = entry.getValue();
-            }
-            else {
-                targetValue = String.join(",", DataPrepare.getData(target.getPrepareValue()));
-            }
+            targetValue = String.join(",", new ArrayList<>(new HashSet<>(entry.getValue())));
             switch (target.getActionType()) {
                 case Select -> actor.attemptsTo(
                         Task.where(String.format("perform %s %s", target.getActionType(), target.getTargetName())),
@@ -62,7 +45,7 @@ public class GeneralTask {
                         Click.on(GeneralForm.dropdown_list(targetValue.toString())));
                 case EnterValue -> {
                     actor.attemptsTo(
-                            Task.where(String.format("perform %s value %s into %s", target.getActionType(), targetValue.toString(), target.getTargetName())),
+                            Task.where(String.format("perform %s value %s into %s", target.getActionType(), targetValue, target.getTargetName())),
                             Enter.theValue(targetValue.toString()).into(target.getTargetLocated()));
                 }
             }

@@ -1,8 +1,10 @@
 package cts.ui.tasks.external;
 
+import cts.ui.model.TaggingType;
 import cts.ui.model.TaskType;
 
 import cts.ui.tasks.GeneralTask;
+import cts.ui.tasks.verify.VerifyTask;
 import io.cucumber.datatable.DataTable;
 import lib.GetProperties;
 import net.serenitybdd.screenplay.Actor;
@@ -41,8 +43,8 @@ public class NapCMTask{
         }
     }
 
-    public static Performable performTask(Actor actor, DataTable dataTable) {
-        GeneralTask generalTask = new GeneralTask(dataTable);
+    public static Performable performTask(Actor actor, DataTable dataTable, TaskType taskType) {
+        GeneralTask generalTask = new GeneralTask(dataTable, taskType);
         return generalTask.runGeneralTask(actor);
     }
 }

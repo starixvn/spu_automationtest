@@ -1,7 +1,7 @@
 package cts.ui.tasks.evidence;
 
 import cts.ui.model.OverWriteType;
-import cts.ui.tasks.navigation.NavigateForm;
+import cts.ui.tasks.common.NavigateForm;
 import lib.GetProperties;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;

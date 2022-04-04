@@ -1,7 +1,9 @@
 package cts.ui.model;
 
-import static cts.ui.model.ExternalPageType.ManageProblemAccountCreditSites;
-import static cts.ui.model.ExternalPageType.ManageProblemAccountLicenseeSites;
+import cts.ui.model.external.ExternalPageType;
+import cts.ui.model.external.ExternalTargetType;
+import static cts.ui.model.external.ExternalTargetType.*;
+import static cts.ui.model.external.ExternalPageType.*;
 
 public enum TaskType {
     MarkNewProblemAccount_CreditSites(ManageProblemAccountCreditSites, "Mark New Problem Account"),
@@ -11,8 +13,9 @@ public enum TaskType {
     ReduceBetLimit(ManageProblemAccountCreditSites, "Reduce Bet Limit"),
     RemoveReducedBetLimit(ManageProblemAccountCreditSites, "Remove Reduced Bet Limit");
 
-    ExternalPageType externalPageType;
-    String actionName;
+    private ExternalPageType externalPageType;
+    private String actionName;
+    private ExternalTargetType[] externalTargetType;
      TaskType(ExternalPageType externalPageType, String actionName) {
         this.externalPageType = externalPageType;
         this.actionName = actionName;

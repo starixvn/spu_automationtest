@@ -1,4 +1,7 @@
-package cts.ui.model;
+package cts.ui.model.external;
+
+import cts.ui.model.MenuItermType;
+import cts.ui.model.SourceType;
 
 import static cts.ui.model.MenuItermType.Customer;
 import static cts.ui.model.SourceType.NapCM;
