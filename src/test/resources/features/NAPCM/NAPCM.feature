@@ -8,15 +8,15 @@ Feature: NAPCM
     When I perform task MarkNewProblemAccount_CreditSites
       | Level | Username | Reason        | Preventive Action | Comment                       |
       | Agent | Username | Group Betting | None              | Verify insert PA for CAgent01 |
-#    Then I verify tagging Insert_Problem_Category apply for "MemberCustID"
-#      | Table                                  | Column       | exp |
-#      | CTSCustomerClassification_InputDataLog | FunctionID   | 41  |
-#      | CTSCustomerClassification_InputDataLog | InputValue   | 102 |
-#      | CTSCustomerClassification              | CategoryID   | 152 |
-#      | CTSCustomerClassification_History      | CategoryID   | 152 |
-#      | CTSCustomerClassification_History      | SourceTypeID | 6   |
-#      | CTSCustomerClassification_Log          | CategoryID   | 152 |
-#      | CTSCustomerClassification_Log          | SourceTypeID | 6   |
+    Then I verify tagging Insert_Problem_Category apply for "MemberCustID"
+      | Table                                  | Column       | exp |
+      | CTSCustomerClassification_InputDataLog | FunctionID   | 41  |
+      | CTSCustomerClassification_InputDataLog | InputValue   | 102 |
+      | CTSCustomerClassification              | CategoryID   | 152 |
+      | CTSCustomerClassification_History      | CategoryID   | 152 |
+      | CTSCustomerClassification_History      | SourceTypeID | 6   |
+      | CTSCustomerClassification_Log          | CategoryID   | 152 |
+      | CTSCustomerClassification_Log          | SourceTypeID | 6   |
 #    Then I verify tagging Push_CC_Category_ABI_Danger apply for "MemberCustID"
 #      | Table                            | Column        | exp |
 #      | dbo.custinfo                     | CustomerClass | 8   |

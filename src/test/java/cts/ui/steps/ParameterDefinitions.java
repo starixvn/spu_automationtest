@@ -58,13 +58,12 @@ public class ParameterDefinitions {
 
     @AfterAll
     public static void afterAll() {
-//        telegram.sendMessage(String.format("Test cases executed: %d \r\nTest cases passed: %d \r\nTest cases unSuccessful: %d \r\nFull Report: %s \r\nSummary Report: %s",
-//                successfulNumber + unSuccessfulNumber,
-//                successfulNumber,
-//                unSuccessfulNumber,
-//                Paths.get(System.getProperty("user.dir"), prop.getProperty("fullReportDir")),
-//                Paths.get(System.getProperty("user.dir"), prop.getProperty("summaryReportDir"))));
-
+        telegram.sendMessage(String.format("Test cases executed: %d \r\nTest cases passed: %d \r\nTest cases unSuccessful: %d \r\nFull Report: %s \r\nSummary Report: %s",
+                successfulNumber + unSuccessfulNumber,
+                successfulNumber,
+                unSuccessfulNumber,
+                Paths.get(System.getProperty("user.dir"), prop.getProperty("fullReportDir")),
+                Paths.get(System.getProperty("user.dir"), prop.getProperty("summaryReportDir"))));
     }
 
     public static void setEnvType() {
