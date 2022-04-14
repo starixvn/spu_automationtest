@@ -5,6 +5,7 @@ import cts.ui.model.Category;
 import cts.ui.model.TaggingType;
 import cts.ui.model.TargetVerifyType;
 import cts.ui.tasks.common.NavigateTo;
+import cts.ui.tasks.database.DataPrepareTask;
 import io.cucumber.datatable.DataTable;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
@@ -28,9 +29,10 @@ public class VerifyTask {
     }
 
     public Performable performTask(Actor actor, TaggingType taggingType, String baseID) throws InterruptedException {
+        List<String> custIDList = DataPrepareTask.getData(baseID);
         switch (taggingType.getPage()) {
             case GeneralInfo, CustomerClassificationTab:
-                actor.attemptsTo(NavigateTo.toPage(taggingType.getPage(), baseID));
+                actor.attemptsTo(NavigateTo.toPage(taggingType.getPage(), custIDList.get(0)));
                 actor.attemptsTo(Sleep.By(Category.LONG_WAITING));
                 break;
             default:

@@ -4,6 +4,8 @@ public enum ColumnType {
     FunctionID,
     InputValue,
     CategoryID,
-    SourceTypeID;
+    SourceTypeID,
+    CustomerClass,
+    Danger2;
     public static String inputName = "Column";
 }

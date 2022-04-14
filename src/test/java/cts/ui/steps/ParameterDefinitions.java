@@ -1,6 +1,7 @@
 package cts.ui.steps;
 
 import cts.ui.model.EnvType;
+import cts.ui.tasks.database.DataPrepareTask;
 import io.cucumber.java.*;
 import lib.GetProperties;
 import lib.Telegram;
@@ -9,17 +10,20 @@ import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.util.EnvironmentVariables;
 
 import java.nio.file.Paths;
 
+import static cts.ui.tasks.database.DataPrepareTask.preList;
+
 @Slf4j
 public class ParameterDefinitions {
-    private Telegram telegram = new Telegram();
-    private GetProperties prop = new GetProperties();
+    private static Telegram telegram = new Telegram();
+    private static GetProperties prop = new GetProperties();
     public static EnvironmentVariables environmentVariables;
     public static EnvType envType;
+    private static int successfulNumber;
+    private static int unSuccessfulNumber;
 
     @ParameterType(".*")
     public Actor actor(String actorName) {
@@ -29,18 +33,22 @@ public class ParameterDefinitions {
     @Before
     public void setTheStage() {
         OnStage.setTheStage(new OnlineCast());
-        if(envType == null){setEnvType();}
+        if (envType == null) {
+            setEnvType();
+        }
     }
 
     @After
     public void after(Scenario scenario) {
-        if (scenario.isFailed()) {
-            telegram.sendMessage(String.format("Scenario \"%s\" is FAILED - Line: %s \r\nFull Report: %s \r\nSummary Report: %s",
-                    scenario.getName(),
-                    scenario.getLine(),
-                    Paths.get(System.getProperty("user.dir"), prop.getProperty("fullReportDir")),
-                    Paths.get(System.getProperty("user.dir"), prop.getProperty("summaryReportDir"))));
+        switch (scenario.getStatus()) {
+            case PASSED:
+                successfulNumber++;
+                break;
+            default:
+                unSuccessfulNumber++;
+                break;
         }
+        preList = null;
     }
 
     @BeforeAll
@@ -50,7 +58,13 @@ public class ParameterDefinitions {
 
     @AfterAll
     public static void afterAll() {
-        log.info("started AfterAll");
+//        telegram.sendMessage(String.format("Test cases executed: %d \r\nTest cases passed: %d \r\nTest cases unSuccessful: %d \r\nFull Report: %s \r\nSummary Report: %s",
+//                successfulNumber + unSuccessfulNumber,
+//                successfulNumber,
+//                unSuccessfulNumber,
+//                Paths.get(System.getProperty("user.dir"), prop.getProperty("fullReportDir")),
+//                Paths.get(System.getProperty("user.dir"), prop.getProperty("summaryReportDir"))));
+
     }
 
     public static void setEnvType() {

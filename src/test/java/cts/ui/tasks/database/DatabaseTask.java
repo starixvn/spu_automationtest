@@ -23,25 +23,24 @@ public class DatabaseTask {
         ColumnType column;
         String expect;
         for (Map<String, String> map : list) {
-            table = TableType.valueOf(map.get(TableType.inputName));
+            table = TableType.getTableTypeByName(map.get(TableType.inputName));
             column = ColumnType.valueOf(map.get(ColumnType.inputName));
             expect = String.valueOf(map.get("exp"));
-            inputVerifiesList.add(new InputVerify(table, column, expect));
+            this.inputVerifiesList.add(new InputVerify(table, column, expect));
         }
     }
 
     public void performDBTask(String CustID) {
         String sql;
-//        List<String> custIDList = DataPrepareTask.getData(CustID);
-        List<String> custIDList = new LinkedList<String>();
-        custIDList.add("");
+        List<String> custIDList = DataPrepareTask.getData(CustID);
 
         for (String custIDIterm : custIDList) {
             for (InputVerify list : inputVerifiesList) {
-                Database database = new Database();
+                Database database = new Database(list.table.getDbType());
+                sql = String.format(sqlForm, list.column.toString(), list.table.getDbType(), list.table, String.join("", custIDIterm));
                 List<String> actList = new ArrayList<>();
                 ArrayList<HashMap<String, String>> act = new ArrayList<>();
-                sql = String.format(sqlForm, list.column.toString(), list.table.getDbType(), list.table, String.join("", custIDIterm));
+
                 try {
                     act = database.exeQuery(sql);
                 } catch (SQLException e) {

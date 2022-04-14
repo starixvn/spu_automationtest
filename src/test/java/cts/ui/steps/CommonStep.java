@@ -1,6 +1,7 @@
 package cts.ui.steps;
 
 import cts.ui.model.*;
+import cts.ui.tasks.GeneralTask;
 import cts.ui.tasks.common.CommonTask;
 import cts.ui.tasks.common.NavigateTo;
 import cts.ui.tasks.database.DataPrepareTask;
@@ -41,14 +42,13 @@ public class CommonStep {
                 actor.attemptsTo(
                         NapCMTask.loginNapCMPage(),
                         NapCMTask.navigateTo(taskType));
-                actor.attemptsTo(NapCMTask.performTask(actor, dataTable, taskType));
-//                actor.attemptsTo(Ensure.that(GeneralForm.DIALOG_SUCCESS).isDisplayed());
                 break;
             case Robot:
                 break;
             default:
                 break;
         }
+        actor.attemptsTo(GeneralTask.runGeneralTask(actor, taskType, dataTable));
     }
 
     @When("{actor} verify tagging {} apply for {string}")

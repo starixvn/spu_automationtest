@@ -30,6 +30,8 @@ $ mvn clean verify -Ddriver=firefox
 
 $ mvn clean verify -Denvironment=local3
 
+$ mvn clean verify -Ddriver=chrome -Denvironment=local1
+
 The test results will be recorded in the `target/site/serenity` directory.
 
 ## Environment requirement

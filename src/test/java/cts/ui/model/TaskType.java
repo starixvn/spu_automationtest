@@ -15,7 +15,6 @@ public enum TaskType {
 
     private ExternalPageType externalPageType;
     private String actionName;
-    private ExternalTargetType[] externalTargetType;
      TaskType(ExternalPageType externalPageType, String actionName) {
         this.externalPageType = externalPageType;
         this.actionName = actionName;

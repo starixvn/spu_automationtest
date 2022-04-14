@@ -1,5 +1,5 @@
 package cts.ui.model;
 
 public enum ActionType {
-    Select, EnterValue, HasText
+    Select, EnterValue, HasText, Click
 }

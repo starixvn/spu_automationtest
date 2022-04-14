@@ -16,7 +16,7 @@ import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.conditions.Check;
 import net.serenitybdd.screenplay.questions.Visibility;
 
-public class NapCMTask{
+public class NapCMTask {
 
     public static Performable loginNapCMPage() {
         GetProperties prop = new GetProperties();
@@ -41,10 +41,5 @@ public class NapCMTask{
                         Click.on(NapCMForm.menuIterm(taskType.getExternalPageType().getMenuItermType().getMenuItermName())),
                         Click.on(NapCMForm.menuDownList(taskType.getExternalPageType().getExternalPageName())));
         }
-    }
-
-    public static Performable performTask(Actor actor, DataTable dataTable, TaskType taskType) {
-        GeneralTask generalTask = new GeneralTask(dataTable, taskType);
-        return generalTask.runGeneralTask(actor);
     }
 }

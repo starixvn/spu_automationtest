@@ -11,7 +11,7 @@ public enum TaggingType {
     General_Info_Get_Classification("General Info - Get Classification", UI, GeneralInfo),
     General_Info_Get_Dates("Push Customer Class", UI, null),
     Customer_Classification_Tab_Get_log("Customer Classification Tab - Get log", UI, CustomerClassificationTab),
-    Push_CC_Category_ABI_Danger(" Push CC, Category, ABI Danger", UI, null);
+    Push_CC_Category_ABI_Danger(" Push CC, Category, ABI Danger", DB, null);
 
     private String taggingName;
     private VerifyType verityType;
